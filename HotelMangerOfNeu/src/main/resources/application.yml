@@ -1,20 +1,19 @@
 
-server:  port: 8000
+server:
+  port: 8100
  
 spring:
   datasource:
     username: root
-    password: root1234
-    url: jdbc:mysql://localhost:3305/hotel?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    password: zhuwenhao2147
+    url: jdbc:mysql://localhost:3306/neuoa?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
  
 mybatis:
   mapper-locations: classpath:mapping/**/*.xml
-  type-aliases-package: com.neusoft.oa.hr.model,com.neusoft.oa.admin.model
+  type-aliases-package: com.hit.hotel.room.model,com.hit.hotel.admin.model
  
 #showSql
 logging:
   level:
-     com.neusoft.oa: debug
-    
- 
+    com.neusoft.oa: debug
