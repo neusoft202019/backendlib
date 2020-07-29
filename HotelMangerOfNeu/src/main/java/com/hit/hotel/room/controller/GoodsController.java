@@ -1,5 +1,7 @@
 package com.hit.hotel.room.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hit.hotel.hr.model.EmployeeModel;
 import com.hit.hotel.restresult.Result;
 import com.hit.hotel.room.model.GoodsModel;
 import com.hit.hotel.room.service.IGoodsService;
@@ -49,17 +52,18 @@ public class GoodsController {
 		return result;
 	}
 	//取得物品列表，分页模式
-	@GetMapping(value="/list/all/page")
-	public Result<GoodsModel> getListByAllWitgPage(@RequestParam(required=false,defaultValue="10") int rows,@RequestParam(required=false,defaultValue="1") int page) throws Exception{
+	@PostMapping(value="/list/all/page")
+	public Result<GoodsModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page) throws Exception{
 		Result<GoodsModel> result=new Result<GoodsModel>();
+		result.setPage(page);
+		result.setRows(rows);
 		result.setCount(gs.getCountByAll());
 		result.setPageCount(gs.getPageCountByAll(rows));
-		result.setRows(rows);
-		result.setPage(page);
-		result.setList(gs.getListByAllWithPage(rows, page));
-		
+		result.setList(gs.getListByConditionWithPageWithRoom(rows, page));
 		result.setStatus("OK");
-		result.setMessage("取得物品列表分页方式成功!");
+		result.setMessage("按条件检索员工列表成功!");
 		return result;
 	}
 	@GetMapping(value="/get")

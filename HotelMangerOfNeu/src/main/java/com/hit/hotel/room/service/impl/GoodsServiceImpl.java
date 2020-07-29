@@ -77,4 +77,11 @@ public class GoodsServiceImpl implements IGoodsService {
 		return goodsMapper.selectByNo(no);
 	}
 
+	@Override
+	public List<GoodsModel> getListByConditionWithPageWithRoom(int rows, int page) throws Exception {
+		// TODO Auto-generated method stub
+			
+		return goodsMapper.selectListByAllWithPageWithRoom(rows*(page-1), rows);
+	}
+
 }

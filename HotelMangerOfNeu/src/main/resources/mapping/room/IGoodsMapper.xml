@@ -8,15 +8,22 @@
 		<id property="no" column="GOODSNO"/>
 		<result property="code" column="GOODSCODE"/>
 		<result property="name" column="GOODSNAME"/>
+		
 		<result property="price" column="GOODSPRICE"/>
+	</resultMap>
+	
+	<resultMap  id="GoodsWithRoomResultMap" type="Goods" extends="GoodsResultMap">
+		<!-- 使用内嵌式select方式取得关联的部门对象信息 -->
+		
+		<association property="room" resultMap="com.hit.hotel.room.mapper.IRoomMapper.RoomResultMap" />
 	</resultMap>
  
 	<insert id="insert" parameterType="GOODS" keyProperty="no"   keyColumn="GOODSNO"  useGeneratedKeys="true">
-	insert into oa_GOODS (GOODSCODE,GOODSNAME,GOODSPRICE) values (#{code},#{name},#{price})
+	insert into oa_GOODS (GOODSCODE,GOODSNAME,ROOMNO,GOODSPRICE) values (#{code},#{name},#{room.no},#{price})
  	</insert>
   
  	<update id="update">
- 	update  oa_GOODS set GOODSCODE=#{code},GOODSNAME=#{name},GOODSPRICE=#{price} where GOODSNO=#{no}
+ 	update  oa_GOODS set GOODSCODE=#{code},GOODSNAME=#{name},ROOMNO=#{room.no},GOODSPRICE=#{price} where GOODSNO=#{no}
  	</update>
   
 	<delete id="delete">
@@ -35,8 +42,13 @@
  	select count(*)  from oa_GOODS
  	</select>
  
- 	<select id="selectByNo"  resultMap="GoodsResultMap">
- 	select * from oa_GOODS where GOODSNO=#{no}
+ 	<select id="selectByNo"  resultMap="GoodsWithRoomResultMap">
+ 	select * from oa_GOODS a inner join oa_room b on a.ROOMNO=b.ROOMNO where a.GOODSNO=#{no}
+ 	</select>
+ 	
+ 	<select id="selectListByAllWithPageWithRoom" resultMap="GoodsWithRoomResultMap">
+ 	select *  from oa_GOODS a inner join oa_room b on a.ROOMNO=b.ROOMNO
+ 	limit #{start},#{rows}
  	</select>
   
 </mapper>
