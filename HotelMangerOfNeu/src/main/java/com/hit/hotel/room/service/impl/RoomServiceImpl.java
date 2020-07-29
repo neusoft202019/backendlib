@@ -1,78 +1,92 @@
 package com.hit.hotel.room.service.impl;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hit.hotel.room.mapper.IRoomMapper;
-import com.hit.hotel.room.model.RoomModel;
+import com.hit.hotel.enums.RoomStatus;
+import com.hit.hotel.room.mapper.RoomMapper;
+import com.hit.hotel.room.model.Room;
 import com.hit.hotel.room.service.IRoomService;
 
-@Service("roomServiceSM")
-@Transactional  //环绕事务Advice的切入点
+import java.util.List;
+
+@Service
 public class RoomServiceImpl implements IRoomService {
+    @Autowired
+    private RoomMapper roomMapper;
 
-	@Autowired
-	private IRoomMapper roomMapper=null;
-	
-	@Override
-	public int add(RoomModel rm) throws Exception {
-		// TODO Auto-generated method stub
-		roomMapper.insert(rm);
-		return rm.getNo();
-	}
+    @Override
+    public int insert(Room room) {
+        return roomMapper.insertSelective(room);
+    }
 
-	@Override
-	public void modify(RoomModel rm) throws Exception {
-		// TODO Auto-generated method stub
-		roomMapper.update(rm);
-	}
+    @Override
+    public int delete(int roomId) {
+        return roomMapper.deleteByPrimaryKey(roomId);
+    }
 
-	@Override
-	public void delete(RoomModel rm) throws Exception {
-		// TODO Auto-generated method stub
-		roomMapper.delete(rm);
-	}
+    @Override
+    public int update(Room room) {
+        return roomMapper.updateByPrimaryKeySelective(room);
+    }
 
-	@Override
-	public List<RoomModel> getListByAll() throws Exception {
-		// TODO Auto-generated method stub
-		return roomMapper.selectByAll();
-	}
+    @Override
+    public Room selectById(int roomId) {
+        return roomMapper.selectByPrimaryKey(roomId);
+    }
 
-	@Override
-	public List<RoomModel> getListByAllWithPage(int rows, int page) throws Exception {
-		// TODO Auto-generated method stub
-		return roomMapper.selectByAllWithPage(rows*(page-1), rows);
-	}
+    @Override
+    public Room selectByNumber(String roomNumber) {
+        return roomMapper.selectByNumber(roomNumber);
+    }
 
-	@Override
-	public int getCountByAll() throws Exception {
-		// TODO Auto-generated method stub
-		return roomMapper.selectCountByAll();
-	}
+    @Override
+    public List<Room> selectByStatus(int roomStatus) {
+        return roomMapper.selectByStatus(roomStatus);
+    }
 
-	@Override
-	public int getPageCountByAll(int rows) throws Exception {
-		// TODO Auto-generated method stub
-		int count=this.getCountByAll();
-		int pageCount=0;
-		if(count%rows==0) {
-			pageCount=count/rows;
-		}
-		else {
-			pageCount=count/rows+1;
-		}
-		
-		return pageCount;
-	}
+    @Override
+    public List<Room> selectByType(int typeId) {
+        return roomMapper.selectByType(typeId);
+    }
 
-	@Override
-	public RoomModel getByNo(int no) throws Exception {
-		// TODO Auto-generated method stub
-		return roomMapper.selectByNo(no);
-	}
+    @Override
+    public List<Room> selectAll() {
+        return roomMapper.selectAll();
+    }
+
+    @Override
+    @Transactional
+    public int orderRoom(int typeId) {
+        Room room = roomMapper.randomSelectByTypeAndStatus(typeId,RoomStatus.AVAILABLE.getCode());
+        if (room == null) return -1;
+        room.setRoomStatus(RoomStatus.ORDERED.getCode());
+        return roomMapper.updateByPrimaryKeySelective(room);
+    }
+
+    /**
+     * 房间入住
+     * @param typeId
+     * @return
+     */
+    @Override
+    public int inRoom(int typeId) {
+        Room room = roomMapper.randomSelectByTypeAndStatus(typeId,RoomStatus.AVAILABLE.getCode());
+        System.out.println(room);
+        room.setRoomStatus(RoomStatus.IN_USE.getCode());
+        if (roomMapper.updateByPrimaryKeySelective(room) <= 0)
+            return -1;
+        else return room.getRoomId();
+    }
+
+    @Override
+    public int outRoom(int typeId) {
+        Room room = roomMapper.randomSelectByTypeAndStatus(typeId,RoomStatus.IN_USE.getCode());
+        if (room == null) return -1;
+        room.setRoomStatus(RoomStatus.AVAILABLE.getCode());
+        return roomMapper.updateByPrimaryKeySelective(room);
+    }
 
 }
