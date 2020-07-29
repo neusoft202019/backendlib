@@ -5,13 +5,25 @@ server:
 spring:
   datasource:
     username: root
-    password: zhuwenhao2147
-    url: jdbc:mysql://localhost:3306/neuoa?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    password: root1234
+    url: jdbc:mysql://localhost:3306/hotelmanager?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size:
+        2MB
+      file-size-threshold:
+        0
+      location: d:/temp
+  resources:
+    static-locations:
+    - file:F:/webroot
+   
  
 mybatis:
   mapper-locations: classpath:mapping/**/*.xml
-  type-aliases-package: com.hit.hotel.room.model,com.hit.hotel.admin.model
+  type-aliases-package: com.hit.hotel.room.model,com.hit.hotel.hr.model
  
 #showSql
 logging:
