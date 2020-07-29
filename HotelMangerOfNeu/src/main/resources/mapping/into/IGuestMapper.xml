@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hit.hotel.into.mapper.IGuestMapper">
+
+	<resultMap id="GuestResultMap" type="Guest" >
+		<id property="no" column="GUESTNO"/>
+		<result property="name" column="GUESTNAME"/>
+		<result property="age" column="GUESTAGE"/>
+		<result property="sex" column="GUESTSEX"/>
+		<result property="account" column="GUESTACCOUNT"/>
+		<result property="local" column="GUESTLOCAL"/>
+	</resultMap>
+ 
+	<insert id="insert" parameterType="Guest">
+	insert into oa_Guest (GUESTNO,GUESTNAME,GUESTAGE,GUESTSEX,GUESTACCOUNT,GUESTLOCAL) values (#{no},#{name},#{age},#{sex},#{account},#{local})
+ 	</insert>
+  
+ 	<update id="update">
+ 	update  oa_Guest set GUESTNAME=#{name},GUESTAGE=#{age},GUESTSEX=#{sex},GUESTACCOUNT=#{account},GUESTLOCAL=#{local} where GUESTNO=#{no}
+ 	</update>
+  
+	<delete id="delete">
+ 	delete from oa_Guest  where GUESTNO=#{no} 
+ 	</delete>
+  
+ 	<select id="selectByAll"  resultMap="GuestResultMap">
+ 	select *  from oa_Guest
+ 	</select>
+ 	
+ 	<select id="selectByAllWithPage" resultMap="GuestResultMap">
+ 	select *  from oa_Guest limit #{start},#{rows}
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="_int">
+ 	select count(*)  from oa_Guest
+ 	</select>
+ 
+ 	<select id="selectByNo"  resultMap="GuestResultMap">
+ 	select * from oa_Guest where GUESTNO=#{no}
+ 	</select>
+  
+</mapper>

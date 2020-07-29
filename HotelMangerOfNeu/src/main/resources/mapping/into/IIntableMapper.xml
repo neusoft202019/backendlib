@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hit.hotel.into.mapper.IIntableMapper">
+
+	<resultMap id="IntableResultMap" type="Intable" >
+		<result property="code" column="INTABLECODE"/>
+		
+		<result property="begintime" column="INTABLEBEGIN"/>
+		<result property="endtime" column="INTABLEEND"/>
+		<result property="cost" column="INTABLECOST"/>
+		<result property="no" column="ROOMNO"/>
+	</resultMap>
+	
+	<resultMap  id="IntableWithGuestResultMap" type="Intable" extends="IntableResultMap">
+		<!-- 使用内嵌式select方式取得关联的部门对象信息 -->
+		
+		<association property="guest" resultMap="com.hit.hotel.into.mapper.IGuestMapper.GuestResultMap" />
+	</resultMap>
+ 
+	<insert id="insert" parameterType="Intable">
+	insert into oa_INTABLE (INTABLECODE,GUESTNO,INTABLEBEGIN,INTABLEEND,INTABLECOST,ROOMNO) values (#{code},#{guest.no},#{begintime},#{endtime},#{cost},#{no})
+ 	</insert>
+  
+ 	<update id="update">
+ 	update  oa_INTABLE set GUESTNO=#{guest.no},INTABLEBEGIN=#{begintime},INTABLEEND=#{endtime},INTABLECOST=#{cost},ROOMNO=#{no} where INTABLECODE=#{code}
+ 	</update>
+  
+	<delete id="delete">
+ 	delete from oa_Intable  where INTABLECODE=#{code} 
+ 	</delete>
+  
+ 	<select id="selectByAll"  resultMap="IntableResultMap">
+ 	select *  from oa_INTABLE
+ 	</select>
+ 	
+ 	<select id="selectByAllWithPage" resultMap="IntableResultMap">
+ 	select *  from oa_INTABLE limit #{start},#{rows}
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="_int">
+ 	select count(*)  from oa_Intable
+ 	</select>
+ 
+ 	<select id="selectByNo"  resultMap="IntableWithGuestResultMap">
+ 	select * from oa_INTABLE a inner join oa_guest b on a.GUESTNO=b.GUESTNO where a.INTABLECODE=#{code}
+ 	</select>
+ 	
+ 	<select id="selectListByAllWithPageWithGuest" resultMap="IntableWithGuestResultMap">
+ 	select *  from oa_INTABLE a inner join oa_guest b on a.GUESTNO=b.GUESTNO
+ 	limit #{start},#{rows}
+ 	</select>
+  
+</mapper>

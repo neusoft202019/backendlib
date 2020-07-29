@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hit.hotel.room.mapper.ICompMapper">
+
+	<resultMap id="CompResultMap" type="Comp" >
+		<id property="no" column="COMPNO"/>
+		<result property="name" column="COMPNAME"/>
+		<result property="able" column="COMPABLE"/>
+		<result property="tel" column="COMPTEL"/>
+		<result property="cost" column="COMPCOST"/>
+		<result property="per" column="COMPPER"/>
+	</resultMap>
+ 
+	<insert id="insert" parameterType="Comp">
+	insert into oa_COMP (COMPNO,COMPNAME,COMPABLE,COMPTEL,COMPCOST,COMPPER) values (#{no},#{name},#{able},#{tel},#{cost},#{per})
+ 	</insert>
+  
+ 	<update id="update">
+ 	update  oa_COMP set COMPNAME=#{name},COMPABLE=#{able},COMPTEL=#{tel},COMPCOST=#{cost},COMPPER=#{per} where COMPNO=#{no}
+ 	</update>
+  
+	<delete id="delete">
+ 	delete from oa_COMP  where COMPNO=#{no} 
+ 	</delete>
+  
+ 	<select id="selectByAll"  resultMap="CompResultMap">
+ 	select *  from oa_COMP
+ 	</select>
+ 	
+ 	<select id="selectByAllWithPage" resultMap="CompResultMap">
+ 	select *  from oa_COMP limit #{start},#{rows}
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="_int">
+ 	select count(*)  from oa_COMP
+ 	</select>
+ 
+ 	<select id="selectByNo"  resultMap="CompResultMap">
+ 	select * from oa_COMP where COMPNO=#{no}
+ 	</select>
+  
+</mapper>

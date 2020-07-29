@@ -23,7 +23,7 @@ spring:
  
 mybatis:
   mapper-locations: classpath:mapping/**/*.xml
-  type-aliases-package: com.hit.hotel.room.model,com.hit.hotel.hr.model
+  type-aliases-package: com.hit.hotel.room.model,com.hit.hotel.hr.model,com.hit.hotel.into.model
  
 #showSql
 logging:

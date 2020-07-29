@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages={"com.hit.hotel.room.mapper","com.hit.hotel.hr.mapper"})
+@MapperScan(basePackages={"com.hit.hotel.room.mapper","com.hit.hotel.hr.mapper","com.hit.hotel.into.mapper"})
 public class HotelMangerOfNeuApplication {
 
 	public static void main(String[] args) {
