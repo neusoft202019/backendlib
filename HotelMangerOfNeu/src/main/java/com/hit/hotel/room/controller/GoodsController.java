@@ -52,7 +52,7 @@ public class GoodsController {
 		return result;
 	}
 	//取得物品列表，分页模式
-	@PostMapping(value="/list/all/page")
+	@GetMapping(value="/list/all/page")
 	public Result<GoodsModel> getListByConditionWithPage(
 			@RequestParam(required=false,defaultValue="10") int rows, 
 			@RequestParam(required=false,defaultValue="1") int page) throws Exception{

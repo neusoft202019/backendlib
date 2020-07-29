@@ -47,8 +47,7 @@
  	</select>
  	
  	<select id="selectListByAllWithPageWithRoom" resultMap="GoodsWithRoomResultMap">
- 	select *  from oa_GOODS a inner join oa_room b on a.ROOMNO=b.ROOMNO
- 	limit #{start},#{rows}
+ 	select *  from oa_GOODS a inner join oa_room b on a.ROOMNO=b.ROOMNO limit #{start},#{rows}
  	</select>
   
 </mapper>

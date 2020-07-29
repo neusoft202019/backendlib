@@ -5,7 +5,7 @@
 <mapper namespace="com.hit.hotel.into.mapper.IIntableMapper">
 
 	<resultMap id="IntableResultMap" type="Intable" >
-		<result property="code" column="INTABLECODE"/>
+		<id property="code" column="INTABLECODE"/>
 		
 		<result property="begintime" column="INTABLEBEGIN"/>
 		<result property="endtime" column="INTABLEEND"/>
@@ -43,7 +43,7 @@
  	select count(*)  from oa_Intable
  	</select>
  
- 	<select id="selectByNo"  resultMap="IntableWithGuestResultMap">
+ 	<select id="selectByCode"  resultMap="IntableWithGuestResultMap">
  	select * from oa_INTABLE a inner join oa_guest b on a.GUESTNO=b.GUESTNO where a.INTABLECODE=#{code}
  	</select>
  	

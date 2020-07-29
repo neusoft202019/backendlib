@@ -50,7 +50,7 @@ public class IntableController {
 		return result;
 	}
 	//取得物品列表，分页模式
-	@PostMapping(value="/list/all/page")
+	@GetMapping(value="/list/all/page")
 	public Result<IntableModel> getListByConditionWithPage(
 			@RequestParam(required=false,defaultValue="10") int rows, 
 			@RequestParam(required=false,defaultValue="1") int page) throws Exception{
@@ -65,9 +65,9 @@ public class IntableController {
 		return result;
 	}
 	@GetMapping(value="/get")
-	public Result<IntableModel> getByNo(@RequestParam(required=true) String no) throws Exception{
+	public Result<IntableModel> getByCode(@RequestParam(required=true) String code) throws Exception{
 		Result<IntableModel> result=new Result<IntableModel>();
-		result.setResult(is.getByNo(no));
+		result.setResult(is.getByCode(code));
 		
 		result.setStatus("OK");
 		result.setMessage("取得指定入住单对象成功!");

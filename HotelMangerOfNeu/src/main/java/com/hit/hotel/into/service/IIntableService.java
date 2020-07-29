@@ -21,7 +21,7 @@ public interface IIntableService {
 	//取得入住单的显示页数
 	public int getPageCountByAll(int rows) throws Exception;
 	//根据入住单的no(主键)获取指定的入住单对象
-	public IntableModel getByNo(String no) throws Exception;
+	public IntableModel getByCode(String code) throws Exception;
 	
 	public List<IntableModel> getListByConditionWithPageWithGuest(int rows,int page) throws Exception;
 

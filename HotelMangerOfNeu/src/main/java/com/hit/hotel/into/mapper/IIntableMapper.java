@@ -23,7 +23,7 @@ public interface IIntableMapper {
 	//取得入住单的个数
 	public int selectCountByAll() throws Exception;
 	//根据入住单的no（PK）取得指定的入住单对象
-	public IntableModel selectByNo(String no) throws Exception;
+	public IntableModel selectByCode(String code) throws Exception;
 	
 	public List<IntableModel> selectListByAllWithPageWithGuest(@Param("start") int start,@Param("rows") int rows) throws Exception;
 

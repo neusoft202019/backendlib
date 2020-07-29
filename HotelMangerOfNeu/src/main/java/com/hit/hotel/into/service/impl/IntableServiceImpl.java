@@ -74,9 +74,9 @@ public class IntableServiceImpl implements IIntableService {
 	}
 
 	@Override
-	public IntableModel getByNo(String no) throws Exception {
+	public IntableModel getByCode(String code) throws Exception {
 		// TODO Auto-generated method stub
-		return intableMapper.selectByNo(no);
+		return intableMapper.selectByCode(code);
 	}
 
 	@Override
