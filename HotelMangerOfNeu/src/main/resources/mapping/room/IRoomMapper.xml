@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hit.hotel.room.mapper.IRoomMapper">
+
+	<resultMap id="RoomResultMap" type="Room" >
+		<id property="no" column="ROOMNO"/>
+		<result property="code" column="ROOMCODE"/>
+		<result property="type" column="ROOMTYPE"/>
+		<result property="price" column="ROOMPRICE"/>
+	</resultMap>
+ 
+	<insert id="insert" parameterType="Room" keyProperty="no"   keyColumn="ROOMNO"  useGeneratedKeys="true">
+	insert into oa_Room (ROOMCODE,ROOMTYPE,ROOMPRICE) values (#{code},#{type},#{price})
+ 	</insert>
+  
+ 	<update id="update">
+ 	update  oa_Room set ROOMCODE=#{code},ROOMTYPE=#{type},ROOMPRICE=#{price} where ROOMNO=#{no}
+ 	</update>
+  
+	<delete id="delete">
+ 	delete from oa_Room  where ROOMNO=#{no} 
+ 	</delete>
+  
+ 	<select id="selectByAll"  resultMap="RoomResultMap">
+ 	select *  from oa_Room
+ 	</select>
+ 	
+ 	<select id="selectByAllWithPage" resultMap="RoomResultMap">
+ 	select *  from oa_Room limit #{start},#{rows}
+ 	</select>
+ 	
+ 	<select id="selectCountByAll" resultType="_int">
+ 	select count(*)  from oa_Room
+ 	</select>
+ 
+ 	<select id="selectByNo"  resultMap="RoomResultMap">
+ 	select * from oa_Room where ROOMNO=#{no}
+ 	</select>
+  
+</mapper>
