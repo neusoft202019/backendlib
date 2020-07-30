@@ -1,10 +1,12 @@
 package com.hit.hotel.into.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.hit.hotel.hr.model.EmployeeModel;
 import com.hit.hotel.into.model.GuestModel;
 
 
@@ -26,4 +28,16 @@ public interface IGuestMapper {
 	public GuestModel selectByNo(String no) throws Exception;
 	//取得指定的客户，并取得其关联的房间集合
 	public GuestModel selectByNoWithGoods(String no) throws Exception;
+	
+	//按综合条件检索员工列表，分页模式，之取关联的部门属性对象
+	public List<GuestModel> selectListByConditionWithPageWithDepartment(@Param("start") int rows,@Param("rows") int page,
+			@Param("lowAge") int lowAge,@Param("highAge") int highAge,
+			@Param("sex") String sex,@Param("nameKey") String nameKey) ;
+	
+
+	//按综合条件检索员工个数，分页模式，之取关联的部门属性对象
+	public int selectCountByCondition(@Param("lowAge") int lowAge,@Param("highAge") int highAge
+			,@Param("sex") String sex,@Param("nameKey") String nameKey) ;
+	
+	
 }

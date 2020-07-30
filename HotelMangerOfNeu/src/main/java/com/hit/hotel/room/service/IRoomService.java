@@ -20,4 +20,8 @@ public interface IRoomService {
 	public int getPageCountByAll(int rows) throws Exception;
 	//根据客房的no(主键)获取指定的客房对象
 	public RoomModel getByNo(int no) throws Exception;
+	public int getCountByCondition(int lowPrice, int highPrice, String type);
+	public int getPageCountByCondition(int lowPrice, int highPrice, String type, int rows);
+	public List<RoomModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowPrice, int highPrice,
+			String type);
 }

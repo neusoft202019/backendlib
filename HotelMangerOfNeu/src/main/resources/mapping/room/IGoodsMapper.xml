@@ -49,5 +49,39 @@
  	<select id="selectListByAllWithPageWithRoom" resultMap="GoodsWithRoomResultMap">
  	select *  from oa_GOODS a inner join oa_room b on a.ROOMNO=b.ROOMNO limit #{start},#{rows}
  	</select>
+ 	
+ 	<select id="selectListByConditionWithPageWithDepartment" resultMap="GoodsResultMap">
+ 	select * from oa_GOODS 
+ 	<where> 
+ 	<if test="lowPrice!=0">
+ 	  and GOODSPRICE &gt;=#{lowPrice}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and GOODSPRICE &lt;=#{highPrice}
+ 	</if>
+ 	<if test="roomNo!=0">
+ 	 and ROOMNO=#{roomNo}
+ 	</if>
+ 	</where>
+ 	limit #{start},#{rows}
+ 	</select>
+ 	
+ 	 <select id="selectCountByCondition" resultType="_int">
+ 	select IFNULL(count(GOODSNO),0) from oa_GOODS 
+ 	<where> 
+ 	<if test="lowPrice!=0">
+ 	  and GOODSPRICE &gt;=#{lowPrice}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and GOODSPRICE &lt;=#{highPrice}
+ 	</if>
+ 	<if test="roomNo!=0">
+ 	 and ROOMNO=#{roomNo}
+ 	</if>
+ 	</where>
+ 	</select>
+ 	
+ 	
+ 	
   
 </mapper>

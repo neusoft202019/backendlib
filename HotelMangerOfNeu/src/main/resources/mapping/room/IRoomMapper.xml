@@ -38,5 +38,37 @@
  	<select id="selectByNo"  resultMap="RoomResultMap">
  	select * from oa_Room where ROOMNO=#{no}
  	</select>
+ 	
+ 	<select id="selectCountByCondition" resultType="_int">
+ 	select IFNULL(count(ROOMNO),0) from oa_Room 
+ 	<where> 
+ 	<if test="lowPrice!=0">
+ 	  and ROOMPRICE &gt;=#{lowPrice}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and ROOMPRICE &lt;=#{highPrice}
+ 	</if>
+ 	<if test="type!=null and type!=''">
+ 	 and ROOMTYPE like #{type}
+ 	</if>
+ 	</where>
+ 	</select>
+ 	
+ 	<select id="selectListByConditionWithPageWithDepartment" resultMap="RoomResultMap">
+ 	select * from oa_Room 
+ 	<where> 
+ 	<if test="lowPrice!=0">
+ 	  and ROOMPRICE &gt;=#{lowPrice}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and ROOMPRICE &lt;=#{highPrice}
+ 	</if>
+ 	<if test="type!=null and type!=''">
+ 	 and ROOMTYPE like #{type}
+ 	</if>
+ 	</where>
+ 	limit #{start},#{rows}
+ 	</select>
+ 	
   
 </mapper>

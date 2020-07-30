@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hit.hotel.hr.model.EmployeeModel;
+import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.restresult.Result;
 import com.hit.hotel.room.model.GoodsModel;
 import com.hit.hotel.room.service.IGoodsService;
@@ -75,4 +76,27 @@ public class GoodsController {
 		result.setMessage("取得指定物品对象成功!");
 		return result;
 	}
+	
+	@GetMapping(value="/list/condition/page")
+	public Result<GoodsModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="0") int lowPrice, 
+			@RequestParam(required=false,defaultValue="0") int highPrice,
+			@RequestParam(required=false,defaultValue="0") int roomNo) throws Exception{
+		Result<GoodsModel> result=new Result<GoodsModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		System.out.println("here for testing");
+		System.out.print("here for list contain");
+		result.setCount(gs.getCountByCondition(lowPrice, highPrice, roomNo));
+		result.setPageCount(gs.getPageCountByCondition(lowPrice, highPrice, roomNo,rows));
+		result.setList(gs.getListByConditionWithPageWithDepartment(rows, page,lowPrice, highPrice, roomNo));
+		result.setStatus("OK");
+		result.setMessage("按条件检索物品列表成功!");
+		return result;
+	}
+	
+	
+	
 }

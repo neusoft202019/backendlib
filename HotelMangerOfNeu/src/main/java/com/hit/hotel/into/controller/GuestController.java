@@ -1,6 +1,9 @@
 package com.hit.hotel.into.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hit.hotel.hr.model.EmployeeModel;
 import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.into.service.IGuestService;
 import com.hit.hotel.restresult.Result;
@@ -70,6 +74,26 @@ public class GuestController {
 		
 		result.setStatus("OK");
 		result.setMessage("取得指定客户对象成功!");
+		return result;
+	}
+	
+	@GetMapping(value="/list/condition/page")
+	public Result<GuestModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="0") int lowAge, 
+			@RequestParam(required=false,defaultValue="0") int highAge,
+			@RequestParam(required=false,defaultValue="") String sex, 
+			@RequestParam(required=false,defaultValue="") String nameKey) throws Exception{
+		Result<GuestModel> result=new Result<GuestModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		System.out.print("here for list contain");
+		result.setCount(gs.getCountByCondition(lowAge, highAge, sex, nameKey));
+		result.setPageCount(gs.getPageCountByCondition(lowAge, highAge, sex, nameKey,rows));
+		result.setList(gs.getListByConditionWithPageWithDepartment(rows, page,lowAge, highAge, sex, nameKey));
+		result.setStatus("OK");
+		result.setMessage("按条件检索客户列表成功!");
 		return result;
 	}
 

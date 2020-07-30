@@ -1,11 +1,13 @@
 package com.hit.hotel.into.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hit.hotel.hr.model.EmployeeModel;
 import com.hit.hotel.into.mapper.IGuestMapper;
 import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.into.service.IGuestService;
@@ -76,5 +78,43 @@ public class GuestServiceImpl implements IGuestService {
 		// TODO Auto-generated method stub
 		return guestMapper.selectByNo(no);
 	}
+
+
+
+	@Override
+	public int getCountByCondition(int lowAge, int highAge,String sex, String nameKey) {
+		if(nameKey!=null&&nameKey.trim().length()>0) {
+			nameKey="%"+nameKey+"%";
+		}
+		return guestMapper.selectCountByCondition(lowAge, highAge, sex, nameKey);
+	}
+	
+	@Override
+	public int getPageCountByCondition(int lowAge, int highAge,String sex, String nameKey,int rows) throws Exception {
+		if(nameKey!=null&&nameKey.trim().length()>0) {
+			nameKey="%"+nameKey+"%";
+		}
+		int count=this.getCountByCondition(lowAge, highAge,  sex, nameKey);
+		int pageCount=0;
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	
+	}
+
+	@Override
+	public List<GuestModel> getListByConditionWithPageWithDepartment(int rows, int page,int lowAge, int highAge, String sex, String nameKey) {
+		if(nameKey!=null&&nameKey.trim().length()>0) {
+			nameKey="%"+nameKey+"%";
+		}
+		
+		return guestMapper.selectListByConditionWithPageWithDepartment(rows*(page-1), rows, lowAge, highAge, sex, nameKey);
+	}
+	
+	
 
 }
