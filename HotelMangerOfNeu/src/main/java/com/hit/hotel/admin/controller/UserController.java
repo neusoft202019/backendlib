@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -81,6 +83,15 @@ public class UserController {
 		result.setMessage("取得已经登录管理员成功");
 		return result;
 		
+	}
+	
+	@PostMapping(value = "/add")
+	public Result<String> add(@RequestBody UserModel um) throws Exception{
+		Result<String> result=new Result<String>();
+		userService.add(um);
+		result.setStatus("OK");
+		result.setMessage("增加房间成功");
+		return result;
 	}
 	
 

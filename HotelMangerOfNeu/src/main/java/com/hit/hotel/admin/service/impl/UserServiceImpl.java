@@ -37,4 +37,10 @@ public class UserServiceImpl implements IUserService {
 		userMapper.update(um);
 	}
 
+	@Override
+	public void add(UserModel um) throws Exception {
+		// TODO Auto-generated method stub
+		userMapper.insert(um);
+	}
+
 }

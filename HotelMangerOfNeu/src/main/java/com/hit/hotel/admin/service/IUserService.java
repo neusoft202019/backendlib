@@ -11,5 +11,7 @@ public interface IUserService {
 	public boolean validate(String id,String password) throws Exception;
 	//修改自己的密码
 	public void changePassword(String id,String password) throws Exception;
-
+	//加入新的管理员账户
+	public void add(UserModel um) throws Exception;
+	
 }

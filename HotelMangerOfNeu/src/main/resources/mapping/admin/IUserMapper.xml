@@ -14,4 +14,8 @@
  	<select id="getById"  resultMap="UserResultMap">
  	select * from oa_adminuser where USERID=#{id}
  	</select>
+ 	
+ 	<insert id="insert" parameterType="User" keyProperty="id"   keyColumn="USERID"  useGeneratedKeys="true">
+	insert into oa_adminuser (USERID,UPASSWORD,USERNAME) values (#{id},#{password},#{name})
+ 	</insert>
 </mapper>
