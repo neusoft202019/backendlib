@@ -79,17 +79,17 @@ public class IntableController {
 	public Result<IntableModel> getListByConditionWithPage(
 			@RequestParam(required=false,defaultValue="10") int rows, 
 			@RequestParam(required=false,defaultValue="1") int page, 
-			@RequestParam(required=false,defaultValue="0") int lowAge, 
-			@RequestParam(required=false,defaultValue="0") int highAge,
+			@RequestParam(required=false,defaultValue="0") int lowPrice, 
+			@RequestParam(required=false,defaultValue="0") int highPrice,
 			@RequestParam(required=false,defaultValue="0") int roomNo, 
 			@RequestParam(required=false,defaultValue="") String nameKey) throws Exception{
 		Result<IntableModel> result=new Result<IntableModel>();
 		result.setPage(page);
 		result.setRows(rows);
 		System.out.print("here for list contain");
-		result.setCount(is.getCountByCondition(lowAge, highAge, roomNo, nameKey));
-		result.setPageCount(is.getPageCountByCondition(lowAge, highAge, roomNo, nameKey,rows));
-		result.setList(is.getListByConditionWithPageWithDepartment(rows, page,lowAge, highAge, roomNo, nameKey));
+		result.setCount(is.getCountByCondition(lowPrice, highPrice, roomNo, nameKey));
+		result.setPageCount(is.getPageCountByCondition(lowPrice, highPrice, roomNo, nameKey,rows));
+		result.setList(is.getListByConditionWithPageWithDepartment(rows, page,lowPrice, highPrice, roomNo, nameKey));
 		result.setStatus("OK");
 		result.setMessage("按条件检索入住列表成功!");
 		return result;

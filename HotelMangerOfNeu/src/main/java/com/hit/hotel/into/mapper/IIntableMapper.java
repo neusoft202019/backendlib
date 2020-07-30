@@ -26,8 +26,8 @@ public interface IIntableMapper {
 	public IntableModel selectByCode(String code) throws Exception;
 	
 	public List<IntableModel> selectListByAllWithPageWithGuest(@Param("start") int start,@Param("rows") int rows) throws Exception;
-	public int selectCountByCondition(@Param("lowPrice") int lowAge, @Param("highPrice") int highAge,@Param("roomNo") int roomNo, @Param("nameKey") String nameKey);
-	public List<IntableModel> selectListByConditionWithPageWithDepartment(@Param("start") int i, @Param("rows")int rows, @Param("lowPrice")  int lowAge,
-			@Param("highPrice") int highAge,@Param("roomNo")int roomNo, @Param("nameKey")String nameKey);
+	public int selectCountByCondition(@Param("lowPrice") int lowPrice, @Param("highPrice") int highPrice,@Param("roomNo") int roomNo, @Param("nameKey") String nameKey);
+	public List<IntableModel> selectListByConditionWithPageWithDepartment(@Param("start") int i, @Param("rows")int rows, @Param("lowPrice")  int lowPrice,
+			@Param("highPrice") int highPrice,@Param("roomNo")int roomNo, @Param("nameKey")String nameKey);
 
 }

@@ -82,9 +82,9 @@ public class UserController {
 		result.setResult((UserModel)session.getAttribute("user"));
 		result.setMessage("取得已经登录管理员成功");
 		return result;
-		
 	}
 	
+
 	@PostMapping(value = "/add")
 	public Result<String> add(@RequestBody UserModel um) throws Exception{
 		Result<String> result=new Result<String>();
@@ -93,6 +93,5 @@ public class UserController {
 		result.setMessage("增加房间成功");
 		return result;
 	}
-	
 
 }
