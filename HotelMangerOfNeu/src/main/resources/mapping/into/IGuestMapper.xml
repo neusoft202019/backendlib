@@ -40,5 +40,43 @@
  	<select id="selectByNo"  resultMap="GuestResultMap">
  	select * from oa_Guest where GUESTNO=#{no}
  	</select>
+ 	
+ 	<select id="selectCountByCondition" resultType="_int">
+ 	select IFNULL(count(GUESTNO),0) from oa_guest 
+ 	<where> 
+ 	<if test="lowAge!=0">
+ 	  and GUESTAGE &gt;=#{lowAge}
+ 	</if>
+ 	<if test="highAge!=0">
+ 	 and GUESTAGE &lt;=#{highAge}
+ 	</if>
+ 	<if test="sex!=null and sex!=''">
+ 	 and GUESTSEX=#{sex}
+ 	</if>
+ 	<if test="nameKey!=null and nameKey!=''">
+ 	 and GUESTNAME like #{nameKey}
+ 	</if>
+ 	</where>
+ 	</select>
+ 	
+ 	<select id="selectListByConditionWithPageWithDepartment" resultMap="GuestResultMap">
+ 	select * from oa_Guest 
+ 	<where> 
+ 	<if test="lowAge!=0">
+ 	  and GUESTAGE &gt;=#{lowAge}
+ 	</if>
+ 	<if test="highAge!=0">
+ 	 and GUESTAGE &lt;=#{highAge}
+ 	</if>
+ 	<if test="sex!=null and sex!=''">
+ 	 and GUESTSEX=#{sex}
+ 	</if>
+ 	<if test="nameKey!=null and nameKey!=''">
+ 	 and GUESTNAME like #{nameKey}
+ 	</if>
+ 	</where>
+ 	limit #{start},#{rows}
+ 	</select>
+ 	
   
 </mapper>

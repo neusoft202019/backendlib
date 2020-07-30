@@ -71,8 +71,31 @@ public class RoomServiceImpl implements IRoomService {
 
 	@Override
 	public RoomModel getByNo(int no) throws Exception {
-		// TODO Auto-generated method stub
 		return roomMapper.selectByNo(no);
+	}
+
+	@Override
+	public int getCountByCondition(int lowPrice, int highPrice, String type) {
+		return roomMapper.selectCountByCondition(lowPrice, highPrice, type);
+	}
+
+	@Override
+	public int getPageCountByCondition(int lowPrice, int highPrice, String type, int rows) {
+		int count=this.getCountByCondition(lowPrice, highPrice,  type);
+		int pageCount=0;
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public List<RoomModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowPrice, int highPrice,
+			String type) {
+		return roomMapper.selectListByConditionWithPageWithDepartment(rows*(page-1), rows, lowPrice, highPrice, type);
 	}
 
 }

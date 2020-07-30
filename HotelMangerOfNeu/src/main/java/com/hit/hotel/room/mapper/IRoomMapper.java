@@ -25,4 +25,9 @@ public interface IRoomMapper {
 	public RoomModel selectByNo(int no) throws Exception;
 	//取得指定的房间，并取得其关联的物品集合
 	public RoomModel selectByNoWithGoods(int no) throws Exception;
+	public List<RoomModel> selectListByConditionWithPageWithDepartment(@Param("start")  int i, @Param("rows") int rows, @Param("lowPrice")int lowPrice, 
+			@Param("highPrice")int highPrice,@Param("type")String type);
+	
+	public int selectCountByCondition( @Param("lowPrice")int lowPrice, 
+			@Param("highPrice")int highPrice,@Param("type")String types);
 }

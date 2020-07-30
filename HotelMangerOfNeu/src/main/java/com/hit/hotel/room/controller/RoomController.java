@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.restresult.Result;
 import com.hit.hotel.room.model.RoomModel;
 import com.hit.hotel.room.service.IRoomService;
@@ -69,6 +70,26 @@ public class RoomController {
 		
 		result.setStatus("OK");
 		result.setMessage("取得指定房间对象成功!");
+		return result;
+	}
+	
+	@GetMapping(value="/list/condition/page")
+	public Result<RoomModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="0") int lowPrice, 
+			@RequestParam(required=false,defaultValue="0") int highPrice,
+			@RequestParam(required=false,defaultValue="") String type) throws Exception{
+		Result<RoomModel> result=new Result<RoomModel>();
+		result.setPage(page);
+		result.setRows(rows);
+
+		result.setCount(rs.getCountByCondition(lowPrice, highPrice, type));
+		System.out.println("here for testing");
+		result.setPageCount(rs.getPageCountByCondition(lowPrice, highPrice, type,rows));
+		result.setList(rs.getListByConditionWithPageWithDepartment(rows, page,lowPrice, highPrice, type));
+		result.setStatus("OK");
+		result.setMessage("按条件检索物品列表成功!");
 		return result;
 	}
 	

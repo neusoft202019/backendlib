@@ -3,6 +3,7 @@ package com.hit.hotel.room.service;
 import java.util.Date;
 import java.util.List;
 
+import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.room.model.GoodsModel;
 
 
@@ -26,4 +27,8 @@ public interface IGoodsService {
 	public GoodsModel getByNo(int no) throws Exception;
 	
 	public List<GoodsModel> getListByConditionWithPageWithRoom(int rows,int page) throws Exception;
+	public int getCountByCondition(int lowPrice, int highPrice, int roomNo);
+	public List<GoodsModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowPrice, int highPrice,
+			int roomNo);
+	public int getPageCountByCondition(int lowPrice, int highPrice, int roomNo, int rows);
 }

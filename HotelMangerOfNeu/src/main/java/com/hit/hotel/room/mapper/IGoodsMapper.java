@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.hit.hotel.hr.model.EmployeeModel;
+import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.room.model.GoodsModel;
 
 
@@ -27,4 +28,9 @@ public interface IGoodsMapper {
 	public GoodsModel selectByNo(int no) throws Exception;
 	
 	public List<GoodsModel> selectListByAllWithPageWithRoom(@Param("start") int start,@Param("rows") int rows) throws Exception;
+	
+	public int selectCountByCondition(@Param("lowPrice")int lowPrice,@Param("highPrice")int highPrice,@Param("roomNo") int roomNo);
+	
+	public List<GoodsModel> selectListByConditionWithPageWithDepartment(@Param("start")  int i, @Param("rows") int rows, @Param("lowPrice")int lowPrice, 
+			@Param("highPrice")int highPrice,@Param("roomNo") int roomNo);
 }
