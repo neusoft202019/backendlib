@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hit.hotel.into.model.GuestModel;
 import com.hit.hotel.into.model.IntableModel;
 import com.hit.hotel.into.service.IIntableService;
 import com.hit.hotel.restresult.Result;
@@ -73,4 +74,25 @@ public class IntableController {
 		result.setMessage("取得指定入住单对象成功!");
 		return result;
 	}
+	
+	@GetMapping(value="/list/condition/page")
+	public Result<IntableModel> getListByConditionWithPage(
+			@RequestParam(required=false,defaultValue="10") int rows, 
+			@RequestParam(required=false,defaultValue="1") int page, 
+			@RequestParam(required=false,defaultValue="0") int lowAge, 
+			@RequestParam(required=false,defaultValue="0") int highAge,
+			@RequestParam(required=false,defaultValue="0") int roomNo, 
+			@RequestParam(required=false,defaultValue="") String nameKey) throws Exception{
+		Result<IntableModel> result=new Result<IntableModel>();
+		result.setPage(page);
+		result.setRows(rows);
+		System.out.print("here for list contain");
+		result.setCount(is.getCountByCondition(lowAge, highAge, roomNo, nameKey));
+		result.setPageCount(is.getPageCountByCondition(lowAge, highAge, roomNo, nameKey,rows));
+		result.setList(is.getListByConditionWithPageWithDepartment(rows, page,lowAge, highAge, roomNo, nameKey));
+		result.setStatus("OK");
+		result.setMessage("按条件检索入住列表成功!");
+		return result;
+	}
+	
 }

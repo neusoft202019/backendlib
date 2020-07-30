@@ -51,5 +51,42 @@
  	select *  from oa_INTABLE a inner join oa_guest b on a.GUESTNO=b.GUESTNO
  	limit #{start},#{rows}
  	</select>
+ 
+  	<select id="selectCountByCondition" resultType="_int">
+ 	select IFNULL(count(a.INTABLECODE),0) from oa_INTABLE a inner join oa_guest b
+ 	<where> 
+ 	<if test="lowPrice!=0">
+ 	  and a.INTABLECOST &gt;=#{lowAge}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and a.INTABLECOST &lt;=#{highAge}
+ 	</if>
+ 	<if test="roomNo!=null and roomNo!=''">
+ 	 and a.ROOMNO=#{ROOMNO}
+ 	</if>
+ 	<if test="nameKey!=null and nameKey!=''">
+ 	 and b.GUESTNAME like #{nameKey}
+ 	</if>
+ 	</where>
+ 	</select>
+ 	
+ 	<select id="selectListByConditionWithPageWithDepartment" resultMap="IntableWithGuestResultMap">
+ 	select * from oa_INTABLE a inner join oa_guest b
+ 	<where>
+ 	<if test="lowPrice!=0">
+ 	  and a.INTABLECOST &gt;=#{lowAge}
+ 	</if>
+ 	<if test="highPrice!=0">
+ 	 and a.INTABLECOST &lt;=#{highAge}
+ 	</if>
+ 	<if test="roomNo!=null and roomNo!=''">
+ 	 and a.ROOMNO=#{ROOMNO}
+ 	</if>
+ 	<if test="nameKey!=null and nameKey!=''">
+ 	 and b.GUESTNAME like #{nameKey}
+ 	</if>
+ 	</where>
+ 	limit #{start},#{rows}
+ 	</select>
   
 </mapper>

@@ -24,5 +24,10 @@ public interface IIntableService {
 	public IntableModel getByCode(String code) throws Exception;
 	
 	public List<IntableModel> getListByConditionWithPageWithGuest(int rows,int page) throws Exception;
+	public int getCountByCondition(int lowAge, int highAge, int roomNo, String nameKey);
+	public int getPageCountByCondition(int lowAge, int highAge, int roomNo, String nameKey, int rows);
+	public List<IntableModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowAge, int highAge,
+			int roomNo, String nameKey);
+
 
 }

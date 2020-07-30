@@ -85,4 +85,38 @@ public class IntableServiceImpl implements IIntableService {
 		return intableMapper.selectListByAllWithPageWithGuest(rows*(page-1), rows);
 	}
 
+	@Override
+	public int getCountByCondition(int lowAge, int highAge, int roomNo, String nameKey) {
+		if(nameKey!=null&&nameKey.trim().length()>0) {
+			nameKey="%"+nameKey+"%";
+		}
+		return intableMapper.selectCountByCondition(lowAge, highAge, roomNo, nameKey);
+	}
+
+	@Override
+	public int getPageCountByCondition(int lowAge, int highAge, int roomNo, String nameKey, int rows) {
+		if(nameKey!=null&&nameKey.trim().length()>0) {
+			nameKey="%"+nameKey+"%";
+		}
+		int count=this.getCountByCondition(lowAge, highAge, roomNo, nameKey);
+		int pageCount=0;
+		if(count%rows==0) {
+			pageCount=count/rows;
+		}
+		else {
+			pageCount=count/rows+1;
+		}
+		return pageCount;
+	}
+
+	@Override
+	public List<IntableModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowAge, int highAge,
+			int roomNo, String nameKey) {
+		if(nameKey!=null&&nameKey.trim().length()>0) {
+			nameKey="%"+nameKey+"%";
+		}
+		
+		return intableMapper.selectListByConditionWithPageWithDepartment(rows*(page-1), rows, lowAge, highAge, roomNo, nameKey);
+	}
+
 }
