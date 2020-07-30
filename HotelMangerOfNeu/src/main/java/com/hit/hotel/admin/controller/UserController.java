@@ -80,8 +80,9 @@ public class UserController {
 		result.setResult((UserModel)session.getAttribute("user"));
 		result.setMessage("取得已经登录管理员成功");
 		return result;
-		
 	}
+	
+	
 	
 
 }

@@ -86,19 +86,19 @@ public class IntableServiceImpl implements IIntableService {
 	}
 
 	@Override
-	public int getCountByCondition(int lowAge, int highAge, int roomNo, String nameKey) {
+	public int getCountByCondition(int lowPrice, int highPrice, int roomNo, String nameKey) {
 		if(nameKey!=null&&nameKey.trim().length()>0) {
 			nameKey="%"+nameKey+"%";
 		}
-		return intableMapper.selectCountByCondition(lowAge, highAge, roomNo, nameKey);
+		return intableMapper.selectCountByCondition(lowPrice, highPrice, roomNo, nameKey);
 	}
 
 	@Override
-	public int getPageCountByCondition(int lowAge, int highAge, int roomNo, String nameKey, int rows) {
+	public int getPageCountByCondition(int lowPrice, int highPrice, int roomNo, String nameKey, int rows) {
 		if(nameKey!=null&&nameKey.trim().length()>0) {
 			nameKey="%"+nameKey+"%";
 		}
-		int count=this.getCountByCondition(lowAge, highAge, roomNo, nameKey);
+		int count=this.getCountByCondition(lowPrice, highPrice, roomNo, nameKey);
 		int pageCount=0;
 		if(count%rows==0) {
 			pageCount=count/rows;
@@ -110,13 +110,13 @@ public class IntableServiceImpl implements IIntableService {
 	}
 
 	@Override
-	public List<IntableModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowAge, int highAge,
+	public List<IntableModel> getListByConditionWithPageWithDepartment(int rows, int page, int lowPrice, int highPrice,
 			int roomNo, String nameKey) {
 		if(nameKey!=null&&nameKey.trim().length()>0) {
 			nameKey="%"+nameKey+"%";
 		}
 		
-		return intableMapper.selectListByConditionWithPageWithDepartment(rows*(page-1), rows, lowAge, highAge, roomNo, nameKey);
+		return intableMapper.selectListByConditionWithPageWithDepartment(rows*(page-1), rows, lowPrice, highPrice, roomNo, nameKey);
 	}
 
 }

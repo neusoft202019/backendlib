@@ -53,13 +53,13 @@
  	</select>
  
   	<select id="selectCountByCondition" resultType="_int">
- 	select IFNULL(count(a.INTABLECODE),0) from oa_INTABLE a inner join oa_guest b
+ 	select IFNULL(count(a.INTABLECODE),0) from oa_INTABLE a inner join oa_guest b on a.GUESTNO=b.GUESTNO
  	<where> 
  	<if test="lowPrice!=0">
- 	  and a.INTABLECOST &gt;=#{lowAge}
+ 	  and a.INTABLECOST &gt;=#{lowPrice}
  	</if>
  	<if test="highPrice!=0">
- 	 and a.INTABLECOST &lt;=#{highAge}
+ 	 and a.INTABLECOST &lt;=#{highPrice}
  	</if>
  	<if test="roomNo!=null and roomNo!=''">
  	 and a.ROOMNO=#{ROOMNO}
@@ -71,13 +71,13 @@
  	</select>
  	
  	<select id="selectListByConditionWithPageWithDepartment" resultMap="IntableWithGuestResultMap">
- 	select * from oa_INTABLE a inner join oa_guest b
+ 	select * from oa_INTABLE a inner join oa_guest b on a.GUESTNO=b.GUESTNO
  	<where>
  	<if test="lowPrice!=0">
- 	  and a.INTABLECOST &gt;=#{lowAge}
+ 	  and a.INTABLECOST &gt;=#{lowPrice}
  	</if>
  	<if test="highPrice!=0">
- 	 and a.INTABLECOST &lt;=#{highAge}
+ 	 and a.INTABLECOST &lt;=#{highPrice}
  	</if>
  	<if test="roomNo!=null and roomNo!=''">
  	 and a.ROOMNO=#{ROOMNO}
