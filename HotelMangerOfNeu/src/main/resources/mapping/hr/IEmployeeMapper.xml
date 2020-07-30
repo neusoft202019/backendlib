@@ -203,6 +203,9 @@
  	 )
  	 
  	</select>
+ 	<select id="deleteBehaves">
+ 	 delete  from oa_employeebehave  where EMPID=#{id}
+ 	</select>
  	
   
 </mapper>

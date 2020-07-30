@@ -30,6 +30,7 @@ import com.hit.hotel.restresult.Result;
 @CrossOrigin(origins = {"*", "null"})
 public class EmployeeController {
 	
+	
 	@Autowired
 	private IEmployeeService employeeService=null;
 	
@@ -39,7 +40,7 @@ public class EmployeeController {
 		
 		if(employeePhoto!=null&&(!employeePhoto.isEmpty())) {
 			//目标文件地址
-			File dist=new File("F:/webroot/photo/"+employeePhoto.getOriginalFilename());
+			File dist=new File("D:/webroot/photo/"+employeePhoto.getOriginalFilename());
 			em.setPhotoFileName(employeePhoto.getOriginalFilename());
 			//em.setPhotoFileName("P_"+em.getId()+"."+    );
 			em.setPhotoContentType(employeePhoto.getContentType());	
@@ -62,9 +63,15 @@ public class EmployeeController {
 	@PostMapping(value="/update/photo")
 	public Result<String> updatePhoto(EmployeeModel em,@RequestParam(required=false) MultipartFile employeePhoto,@RequestParam(required=false) int[] selectBehaves) throws Exception{
 		if(employeePhoto!=null&&(!employeePhoto.isEmpty())) {
+			//目标文件地址
+			File dist=new File("D:/webroot/photo/"+employeePhoto.getOriginalFilename());
+			
 			em.setPhoto(employeePhoto.getBytes());
 			em.setPhotoFileName(employeePhoto.getOriginalFilename());
 			em.setPhotoContentType(employeePhoto.getContentType());
+			//保存上传文件到目标目录
+			employeePhoto.transferTo(dist);
+			
 		}
 		employeeService.modifyPhoto(em);
 		Result<String> result=new Result<String>();
@@ -76,9 +83,16 @@ public class EmployeeController {
 	public Result<String> modify(EmployeeModel em,@RequestParam(required=false) MultipartFile employeePhoto,@RequestParam(required=false) int[] selectBehaves) throws Exception{
 		
 		if(employeePhoto!=null&&(!employeePhoto.isEmpty())) {
+			
+			//目标文件地址
+			File dist=new File("D:/webroot/photo/"+employeePhoto.getOriginalFilename());
+			
 			em.setPhoto(employeePhoto.getBytes());
 			em.setPhotoFileName(employeePhoto.getOriginalFilename());
 			em.setPhotoContentType(employeePhoto.getContentType());
+			//保存上传文件到目标目录
+			employeePhoto.transferTo(dist);
+			
 		}
 		employeeService.modify(em);
 		employeeService.deleteBehaves(em.getId()); //先删除此员工的所有爱好
@@ -94,7 +108,7 @@ public class EmployeeController {
 	@PostMapping(value="/delete")
 	public Result<String> delete(EmployeeModel em) throws Exception{
 		
-		employeeService.modify(em);
+		employeeService.delete(em);
 		employeeService.deleteBehaves(em.getId()); //先删除此员工的所有爱好
 		Result<String> result=new Result<String>();
 		result.setStatus("OK");

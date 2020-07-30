@@ -18,7 +18,7 @@ spring:
       location: d:/temp
   resources:
     static-locations:
-    - file:F:/webroot
+    - file:D:/webroot
    
  
 mybatis:
