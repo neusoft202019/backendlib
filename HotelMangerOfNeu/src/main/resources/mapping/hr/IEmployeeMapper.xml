@@ -16,6 +16,11 @@
 		<result property="photoFileName" column="PhotoFileName"/>
 		<result property="photoContentType" column="PhotoContentType"/>		
 	</resultMap>
+	<resultMap  id="EmployeeWithPhotoResultMap" type="Employee" extends="EmployeeResultMap">
+		<result property="photo" column="PHOTO"/>		
+	</resultMap>
+	
+	
 	<!-- 关联员工部门的结果映射 -->
 	<resultMap  id="EmployeeWithDepartmentResultMap" type="Employee" extends="EmployeeResultMap">
 		<!-- 使用内嵌式select方式取得关联的部门对象信息 -->
@@ -97,6 +102,10 @@
  	select * from oa_employee where EMPID=#{id}
  	</select>
  	
+ 	<select id="selectByIdWithPhoto" resultMap="EmployeeWithPhotoResultMap">
+ 	select * from oa_employee where EMPID=#{id}
+ 	</select>
+ 	
  	<select id="selectByIdWithDepartment" resultMap="EmployeeWithDepartmentResultMap">
  	select a.*,b.* from oa_employee a inner join oa_department b on a.DEPTNO=b.DEPTNO  where EMPID=#{id}
  	</select>
@@ -106,10 +115,20 @@
  	left outer join oa_behave c on b.BNO=c.BNO where a.EMPID=#{id}
  	</select>
  	
+ 	<select id="selectByIdWithDepartmentAndBehaves" resultMap="EmployeeWithDepartmentAndBehaveResultMap">
+ 	select a.*,b.*,d.* from oa_employee a inner join oa_department b on a.DEPTNO=b.DEPTNO  
+ 	 left outer join oa_employeebehave c on a.EMPID=c.EMPID  
+ 	left outer join oa_behave d on c.BNO=d.BNO 
+ 	where a.EMPID=#{id}
+ 	</select>
+ 	
  	<!-- ======================================动态SQL================================================================ -->
  	<select id="selectListByConditionWithPageWithDepartment" resultMap="EmployeeWithDepartmentResultMap">
  	select a.*,b.* from oa_employee a inner join oa_department b on a.DEPTNO=b.DEPTNO 
  	<where> 
+ 	<if test="departmentNo!=0">
+ 	 and a.DEPTNO=#{departmentNo}
+ 	</if>
  	<if test="lowAge!=0">
  	  and a.AGE &gt;=#{lowAge}
  	</if>
@@ -135,6 +154,9 @@
  	<select id="selectCountByCondition" resultType="_int">
  	select IFNULL(count(a.EMPID),0) from oa_employee a inner join oa_department b on a.DEPTNO=b.DEPTNO 
  	<where> 
+ 	<if test="departmentNo!=0">
+ 	 and a.DEPTNO=#{departmentNo}
+ 	</if>
  	<if test="lowAge!=0">
  	  and a.AGE &gt;=#{lowAge}
  	</if>
@@ -155,7 +177,6 @@
  	</if>
  	</where>
  	</select>
- 	
  	
  	<!-- ===================================爱好相关方法============================================================= -->
  	<!-- 取得指定员工的爱好列表 -->

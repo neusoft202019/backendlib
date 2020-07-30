@@ -21,6 +21,10 @@ public interface IEmployeeService {
 	public void delete(EmployeeModel em) throws Exception;
 	//取得指定的员工对象,不取关联的部门和爱好
 	public EmployeeModel getById(String id) throws Exception;
+	//取得指定的员工对象,取其照片
+	public EmployeeModel getByIdWithPhoto(String id) throws Exception;
+		
+	
 	//取得指定的员工对象,取关联的部门，不取爱好
 	public EmployeeModel getByIdWithDepartment(String id) throws Exception;
 	//取得指定的员工对象,不取关联的部门，取爱好
@@ -31,16 +35,16 @@ public interface IEmployeeService {
 	//此方法未来在前端员工页面使用，使用分页方式显示员工列表，并能进行条件检索
 	//按检索条件取得员工列表，并取得关联的部门对象
 	public List<EmployeeModel> getListByConditionWithPageWithDepartment(
-			int rows,int page,int lowAge,int highAge,Date startJoinDate,Date endJoinDate
+			int rows,int page,int departmentNo,int lowAge,int highAge,Date startJoinDate,Date endJoinDate
 			,String sex, String nameKey) throws Exception;
 	
 	//按综合条件检索员工个数
-	public int getCountByCondition(
+	public int getCountByCondition(int departmentNo,
 			int lowAge,int highAge,Date startJoinDate,Date endJoinDate
 			,String sex, String nameKey) throws Exception;
 	
 	//按综合条件检索员工页数
-	public int getPageCountByCondition(int rows,
+	public int getPageCountByCondition(int rows,int departmentNo,
 			int lowAge,int highAge,Date startJoinDate,Date endJoinDate
 			,String sex, String nameKey) throws Exception;
 		

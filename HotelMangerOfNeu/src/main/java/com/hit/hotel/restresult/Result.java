@@ -1,6 +1,6 @@
 package com.hit.hotel.restresult;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -8,47 +8,23 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 //统一的rest api 的结果类
 
 public class Result<T> {
-	private T result=null; //接受返回的单个model对象
-	private List<T> list=null;//接收返回的多个model对象
+	private T result=null;  //接收返回的单个Model对象
+	private List<T> list=null; //接收返回的多个Model对象
 	private int intResult=0;
 	private String stringResult=null;
 	private double doubleResult=0;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date dateResult=null;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date timeResult=null;
-	private String status=null; //返回执行的状态
-	private String message=null;//返回执行的消息
-	
 	//分页信息
-	private int count=0;//个数
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
-	public int getPageCount() {
-		return pageCount;
-	}
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
-	}
-	public int getRows() {
-		return rows;
-	}
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-	public int getPage() {
-		return page;
-	}
-	public void setPage(int page) {
-		this.page = page;
-	}
-	private int pageCount=0;//页数
-	private int rows=0;//每个页显示的个数
-	private int page=0;//当前页
+	private int count=0; //个数
+	private int pageCount=0; //页数
+	private int rows=0; //每个页显示的个数
+	private int page=0; //当前页
+	
+	private String status=null; //返回执行的状态 OK正常，ERROR异常
+	private String message=null; //返回执行的消息
 	public T getResult() {
 		return result;
 	}
@@ -103,7 +79,30 @@ public class Result<T> {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getPageCount() {
+		return pageCount;
+	}
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
+	}
+	public int getRows() {
+		return rows;
+	}
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
 	
 	
 

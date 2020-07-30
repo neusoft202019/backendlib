@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Param;
 import com.hit.hotel.hr.model.BehaveModel;
 import com.hit.hotel.hr.model.EmployeeModel;
 
-
 @Mapper
 public interface IEmployeeMapper {
 
@@ -28,6 +27,9 @@ public interface IEmployeeMapper {
 	public void delete(EmployeeModel em) throws Exception;
 	//取得指定的员工对象,不取关联的部门和爱好
 	public EmployeeModel selectById(String id) throws Exception;
+	//取得指定的员工对象,取得员工照片
+	public EmployeeModel selectByIdWithPhoto(String id) throws Exception;
+	
 	//取得所有员工列表，不取关联的部门和爱好属性
 	public List<EmployeeModel> selectListByAll() throws Exception;
 	//==========================================================================================
@@ -50,13 +52,13 @@ public interface IEmployeeMapper {
 	//=================================================================================================
 	//按综合条件检索员工列表，分页模式，之取关联的部门属性对象
 	public List<EmployeeModel> selectListByConditionWithPageWithDepartment(
-			@Param("start") int start,@Param("rows") int rows
+			@Param("start") int start,@Param("rows") int rows,@Param("departmentNo") int departmentNo
 			,@Param("lowAge") int lowAge,@Param("highAge") int highAge
 			,@Param("startJoinDate") Date startJoinDate,@Param("endJoinDate") Date endJoinDate
 			,@Param("sex") String sex,@Param("nameKey") String nameKey) throws Exception;
 	
 	//按综合条件检索员工个数，分页模式，之取关联的部门属性对象
-	public int selectCountByCondition(
+	public int selectCountByCondition(@Param("departmentNo") int departmentNo,
 			@Param("lowAge") int lowAge,@Param("highAge") int highAge
 			,@Param("startJoinDate") Date startJoinDate,@Param("endJoinDate") Date endJoinDate
 			,@Param("sex") String sex,@Param("nameKey") String nameKey) throws Exception;
